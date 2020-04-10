@@ -18,10 +18,18 @@ jobs:
       - name: Run a script that produces artifacts
         run: ./build.sh
 
-      - name: Deploy to Github Pages
-        uses: JamesIves/github-pages-deploy-action@releases/v3
+      # - name: Deploy to Github Pages
+      #   uses: JamesIves/github-pages-deploy-action@releases/v3
+      #   with:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     BRANCH: gh-pages-test
+      #     FOLDER: .
+      #     SINGLE_COMMIT: true
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages-test
-          FOLDER: .
-          SINGLE_COMMIT: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages-test
+          force_orphan: true
+          publish_dir: .
