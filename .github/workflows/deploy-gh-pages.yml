@@ -1,0 +1,26 @@
+name: Deploy documentation
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy_github_pages:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+
+      - name: Run a script that produces artifacts
+        run: ./build.sh
+
+      - name: Deploy to Github Pages
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages-test
+          SINGLE_COMMIT: true
